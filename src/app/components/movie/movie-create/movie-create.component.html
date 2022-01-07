@@ -1,0 +1,45 @@
+<mat-card class="card-home mat-elevation-z3">
+    <mat-card-title class="card-title">
+        Adicionar Filme
+    </mat-card-title>
+
+    <form [formGroup]="createForm" (ngSubmit)="createMovie()">
+          <mat-form-field appearance="fill">
+            <input matInput placeholder="Título do Filme" formControlName="title" [(ngModel)]="movie.title">
+            <mat-error *ngIf="createForm.get('title')!.errors && createForm.get('title')!.hasError('required')">
+                O campo <strong>título</strong> é obrigatório!
+            </mat-error>
+            <mat-error *ngIf="createForm.get('title')!.hasError('minlength')">
+                O campo <strong>título</strong> deve ser maior que 
+                {{ createForm.get('title')!.errors!.minlength.requiredLength }} caracteres!
+            </mat-error>
+        </mat-form-field>    
+
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Diretor do Filme" formControlName="director" [(ngModel)]="movie.director">
+            <mat-error *ngIf="errorHandlingForm('director', 'required')">
+                O campo <strong>diretor</strong> é obrigatório!
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Gênero do Filme" formControlName="genres" [(ngModel)]="movie.genres">
+            <mat-error *ngIf="errorHandlingForm('genres', 'required')">
+                O campo <strong>gênero</strong> é obrigatório!
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Ano do Lançamento do Filme" formControlName="year" [(ngModel)]="movie.year">
+            <mat-error *ngIf="errorHandlingForm('year', 'required')">
+                O campo <strong>ano</strong> é obrigatório!
+            </mat-error>
+        </mat-form-field>
+    <div>
+        <button mat-flat-button color="primary" type="submit" [disabled]="!createForm.valid">Salvar</button>
+        <button mat-flat-button color="warn" (click)="cancel()">Cancelar</button>
+    </div>
+</form>
+</mat-card>
+
+
